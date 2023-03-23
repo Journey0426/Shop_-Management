@@ -27,7 +27,7 @@ module.exports = {
   publicPath: '/',
   outputDir: 'dist',
   assetsDir: 'static',
-  lintOnSave: process.env.NODE_ENV === 'development',
+  lintOnSave: false,
   productionSourceMap: false,
   devServer: {
     port: port,
@@ -36,7 +36,15 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js')
+    //配置代理服务器
+      proxy: {
+        '/dev-api': {
+          target:'http://gmall-h5-api.atguigu.cn',
+          pathRewrite: { '^/dev-api': '' },
+        }
+      },
+    //开启mock数据
+    after:require('./mock/mock-server')
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that

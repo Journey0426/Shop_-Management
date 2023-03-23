@@ -27,11 +27,20 @@ if (process.env.NODE_ENV === 'production') {
   const { mockXHR } = require('../mock')
   mockXHR()
 }
+//引入相关API请求接口
+import Api from '@/api'
+//组件实例的原型的原型指向的是Vue.prototype
+//任意组件可以使用API相关的接口
+Vue.prototype.$API=Api
 
 // set ElementUI lang to EN
-Vue.use(ElementUI, { locale })
+//Vue.use(ElementUI, { locale })
 // 如果想要中文版 element-ui，按如下方式声明
-// Vue.use(ElementUI)
+ Vue.use(ElementUI)
+//引入全局组件
+import CategorySelect from '@/components/CategorySelect'
+//第一参数:组件名字  第二个参数：哪一个组件
+Vue.component(CategorySelect.name,CategorySelect)
 
 Vue.config.productionTip = false
 
